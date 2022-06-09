@@ -2,6 +2,7 @@ const Goal = require("../Models/Goal");
 const asyncHandler = require("express-async-handler");
 
 let goalController = {
+
   /**
    *@desc  Get goals
    *@route GET /api/goals
@@ -11,6 +12,7 @@ let goalController = {
     let goals = await Goal.find();
     res.status(200).json(goals);
   }),
+
   /**
    *@desc  Set goals
    *@route POST /api/goals
@@ -26,6 +28,7 @@ let goalController = {
     });
     res.status(200).json(goal);
   }),
+
   /**
    *@desc  Update goals
    *@route PUT /api/goals/:id
@@ -48,6 +51,7 @@ let goalController = {
     });
     res.status(200).json(updatedGoal);
   }),
+
   /**
    *@desc  Delete goals
    *@route DELETE /api/goals/:id
@@ -64,6 +68,7 @@ let goalController = {
       id: req.params.id,
     });
   }),
+  
 };
 
 module.exports = goalController;
