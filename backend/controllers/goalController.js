@@ -15,7 +15,10 @@ let goalController={
      *@access Private
      */
     setGoals(req,res){
-        console.log(req.body.name)
+        if(!req.body.title){
+            res.status(400)//set custom status
+            throw new Error('Please add the title field');
+        }
         res.status(200).json({
             'message':'Set goals'
         });
