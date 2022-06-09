@@ -1,27 +1,29 @@
+const Goal=require('../Models/Goal')
+
 let goalController={
     /**
      *@desc  Get goals
      *@route GET /api/goals
      *@access Private
      */
-    getGoals(req,res){
-        res.status(200).json({
-            'message':' Get goals'
-        });
+    async getGoals(req,res){
+        let goals=await Goal.find();
+        res.status(200).json(goals);
     },
      /**
      *@desc  Set goals
      *@route POST /api/goals
      *@access Private
      */
-    setGoals(req,res){
+    async setGoals(req,res){
         if(!req.body.title){
             res.status(400)//set custom status
             throw new Error('Please add the title field');
         }
-        res.status(200).json({
-            'message':'Set goals'
-        });
+        let goal=await Goal.create({
+            title:req.body.title
+        })
+        res.status(200).json(goal);
     },
      /**
      *@desc  Update goals
