@@ -17,7 +17,7 @@ let goalController={
      */
     async setGoals(req,res){
         if(!req.body.title){
-            res.status(400)//set custom status
+            res.status(400);//set custom status
             throw new Error('Please add the title field');
         }
         let goal=await Goal.create({
@@ -30,19 +30,37 @@ let goalController={
      *@route PUT /api/goals/:id
      *@access Private
      */
-    updateGoals(req,res){
-        res.status(200).json({
-            'message':`Update goal for ${req.params.id}`
+    async updateGoals(req,res){
+        if(!req.body.title){
+            res.status(400);//set custom status
+            throw new Error('Please add the title field');
+        }
+
+        let goal=await Goal.findById(req.params.id);
+        if(!goal){
+            res.status(400);//set custom status
+            throw new Error('Goal not exists with that id');
+        }
+        
+        let updatedGoal=await Goal.findByIdAndUpdate(req.params.id,req.body,{
+            new:true//will give the updated value
         });
+        res.status(200).json(updatedGoal);
     },
     /**
      *@desc  Delete goals
      *@route DELETE /api/goals/:id
      *@access Private
      */
-    deleteGoals(req,res){
+    async deleteGoals(req,res){
+        let goal=await Goal.findById(req.params.id);
+        if(!goal){
+            res.status(400);//set custom status
+            throw new Error('Goal not exists with that id');
+        }
+        await goal.remove();
         res.status(200).json({
-            'message':`Delete goal for ${req.params.id}`
+            id:req.params.id
         });
     }
 }
