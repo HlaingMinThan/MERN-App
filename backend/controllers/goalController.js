@@ -15,6 +15,7 @@ let goalController={
      *@access Private
      */
     setGoals(req,res){
+        console.log(req.body.name)
         res.status(200).json({
             'message':'Set goals'
         });
