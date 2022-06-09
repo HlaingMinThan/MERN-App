@@ -1,8 +1,12 @@
 require('dotenv').config()
+require('colors');
 const PORT=process.env.PORT||8000;
 const express=require("express");
 const app=express();
 const {errorHandler}=require('./middlewares/errorMiddleware');
+const connectDB=require('./config/db')
+
+connectDB();
 
 //https://expressjs.com/en/api.html#express.json
 //https://expressjs.com/en/5x/api.html#express.urlencoded
