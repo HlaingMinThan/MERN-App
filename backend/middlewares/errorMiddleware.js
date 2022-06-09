@@ -5,4 +5,4 @@ const errorHandler=(err,req,res,next)=>{
             stack:process.env.APP_ENV==='local' ? err.stack : null
         })
 }
-module.exports=errorHandler
+module.exports={errorHandler}

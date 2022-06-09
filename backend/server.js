@@ -2,7 +2,7 @@ require('dotenv').config()
 const PORT=process.env.PORT||8000;
 const express=require("express");
 const app=express();
-const errorHandler=require('./middlewares/errorHandler');
+const {errorHandler}=require('./middlewares/errorMiddleware');
 
 //https://expressjs.com/en/api.html#express.json
 //https://expressjs.com/en/5x/api.html#express.urlencoded
