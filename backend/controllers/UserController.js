@@ -11,7 +11,11 @@ let UserController = {
    *@access Private
    */
   user: asyncHandler(async (req, res) => {
-    res.json({msg:'get user'})
+    res.json({
+      _id:req.user._id,
+      name:req.user.name,
+      email:req.user.email,
+    })
   }),
 
   /**
