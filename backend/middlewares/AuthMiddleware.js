@@ -7,13 +7,20 @@ const AuthMiddleware={
     auth:asyncHandler(async(req,res,next)=>{
         let token=req.headers.authorization.split(' ')[1];
         if(!token){
-            res.status(400);
-            throw new Error('No token')
+            res.status(401);
+            throw new Error('Not token')
         }
-        let decodedPayload=jwt.verify(token,process.env.JWT_SECRET_KEY);
-        let user=await User.findById(decodedPayload._id).select('-password');
-        req.user=user;
-        next();
+        //for handle jwt error
+       try{
+            let decodedPayload=jwt.verify(token,process.env.JWT_SECRET_KEY);
+            let user=await User.findById(decodedPayload._id).select('-password');
+            req.user=user;
+            next();
+       }catch(err){
+            console.log(err);
+            res.status(401);
+            throw new Error('Not Authorize');
+       }
     })
 }
 module.exports=AuthMiddleware
