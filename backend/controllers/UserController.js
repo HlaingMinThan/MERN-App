@@ -1,6 +1,7 @@
 const User = require("../Models/User");
 const bcrypt=require('bcryptjs');
 const asyncHandler = require("express-async-handler");
+const generateJwtToken=require('../helpers/generateJwtToken');
 
 let UserController = {
 
@@ -35,7 +36,8 @@ let UserController = {
       res.json({
         _id:user._id,
         name:user.name,
-        email:user.email
+        email:user.email,
+        token:generateJwtToken(user._id)
       })
     }else{
       res.json({
@@ -64,7 +66,7 @@ let UserController = {
     let hashPW=await bcrypt.hash(password,salt);
     let newUser=await User.create({name,email,password:hashPW});
 
-    res.json({name,email,_id:newUser._id})
+    res.json({name,email,_id:newUser._id,token:generateJwtToken(newUser._id)})
   }),
 
 };
