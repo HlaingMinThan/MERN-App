@@ -19,7 +19,29 @@ let UserController = {
    *@access Public
    */
   login: asyncHandler(async (req, res) => {
-    res.json({msg:'Login user'})
+    let {email,password}=req.body;
+    if(!email || !password){
+      res.status(400);
+      throw new Error('please add all fields');
+    }
+    let user=await User.findOne({email});
+    if(!user){
+      res.status(400);
+      throw new Error('User not exists');
+    }
+
+    let isPasswordCorrect=await bcrypt.compare(password,user.password);
+    if(user&&isPasswordCorrect){
+      res.json({
+        _id:user._id,
+        name:user.name,
+        email:user.email
+      })
+    }else{
+      res.json({
+        message:'incorrect credentials'
+      });
+    }
   }),
 
   /**
