@@ -4,7 +4,7 @@ const {getGoals,setGoals,updateGoals,deleteGoals}=require('../controllers/GoalCo
 const { auth } = require('../middlewares/AuthMiddleware');
 
 router.route('/',)
-    .get(getGoals)
+    .get(auth,getGoals)
     .post(auth,setGoals);
 
 router.route('/:id')

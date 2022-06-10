@@ -9,7 +9,8 @@ let GoalController = {
    *@access Private
    */
   getGoals: asyncHandler(async (req, res) => {
-    let goals = await Goal.find();
+    //login user's goals
+    let goals = await Goal.find({user_id:req.user._id});
     res.status(200).json(goals);
   }),
 
