@@ -25,6 +25,7 @@ let GoalController = {
     }
     let goal = await Goal.create({
       title: req.body.title,
+      user_id:req.user._id
     });
     res.status(200).json(goal);
   }),
