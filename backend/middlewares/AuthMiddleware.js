@@ -9,12 +9,12 @@ const AuthMiddleware={
         let token;
         if(!authorization){
             res.status(401);
-            throw new Error('Not token')
+            throw new Error('No token')
         }
         token=authorization.split(' ')[1];
         if(!token){
             res.status(401);
-            throw new Error('Not token')
+            throw new Error('No token')
         }
         //for handle jwt error
        try{
