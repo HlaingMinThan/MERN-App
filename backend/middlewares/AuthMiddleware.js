@@ -5,7 +5,13 @@ const asyncHandler=require('express-async-handler');
 const AuthMiddleware={
     //err first argument no need for normal middleware
     auth:asyncHandler(async(req,res,next)=>{
-        let token=req.headers.authorization.split(' ')[1];
+        let authorization=req.headers.authorization;
+        let token;
+        if(!authorization){
+            res.status(401);
+            throw new Error('Not token')
+        }
+        token=authorization.split(' ')[1];
         if(!token){
             res.status(401);
             throw new Error('Not token')
