@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 app.use('/api/goals',require('./routes/goalRoutes.js'))
-app.use('/api/users',require('./routes/getUsers.js'))
+app.use('/api/users',require('./routes/userRoutes.js'))
 
 //error will throw from route controller so need to catch after that
 app.use(errorHandler);
