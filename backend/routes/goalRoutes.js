@@ -8,7 +8,7 @@ router.route('/',)
     .post(auth,setGoals);
 
 router.route('/:id')
-    .put(updateGoals)
-    .delete(deleteGoals);
+    .put(auth,updateGoals)
+    .delete(auth,deleteGoals);
 
 module.exports=router

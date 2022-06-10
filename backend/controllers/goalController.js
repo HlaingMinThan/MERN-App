@@ -42,10 +42,16 @@ let GoalController = {
       throw new Error("Please add the title field");
     }
 
+    let auth_user=req.user;
     let goal = await Goal.findById(req.params.id);
     if (!goal) {
       res.status(400); //set custom status
       throw new Error("Goal not exists with that id");
+    }
+
+    if(auth_user._id.toString() !== goal.user_id.toString()){
+      res.status(400); //set custom status
+      throw new Error("User not authorize to do this action.");
     }
 
     let updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
@@ -60,11 +66,18 @@ let GoalController = {
    *@access Private
    */
   deleteGoals: asyncHandler(async (req, res) => {
+    let auth_user=req.user;
     let goal = await Goal.findById(req.params.id);
     if (!goal) {
       res.status(400); //set custom status
       throw new Error("Goal not exists with that id");
     }
+
+    if(auth_user._id.toString() !== goal.user_id.toString()){
+      res.status(400); //set custom status
+      throw new Error("User not authorize to do this action.");
+    }
+   
     await goal.remove();
     res.status(200).json({
       id: req.params.id,
