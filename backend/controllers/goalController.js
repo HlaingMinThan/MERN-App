@@ -1,7 +1,7 @@
 const Goal = require("../Models/Goal");
 const asyncHandler = require("express-async-handler");
 
-let goalController = {
+let GoalController = {
 
   /**
    *@desc  Get goals
@@ -71,4 +71,4 @@ let goalController = {
   
 };
 
-module.exports = goalController;
+module.exports = GoalController;
